@@ -13,6 +13,7 @@
 	(begin
     (try! (contract-call? .alex-reserve-pool add-token .age000-governance-token))
     (try! (contract-call? .alex-reserve-pool set-coinbase-amount .age000-governance-token coinbase-1 coinbase-2 coinbase-3 coinbase-4 coinbase-5))
-    (contract-call? .alex-reserve-pool set-apower-multiplier-in-fixed .age000-governance-token apower-multipler)
+    (try! (contract-call? .alex-reserve-pool set-apower-multiplier-in-fixed .age000-governance-token apower-multipler))
+    (contract-call? .alex-reserve-pool register-user .age000-governance-token (some u"$ALEX Staking Pool activated"))
   )
 )
