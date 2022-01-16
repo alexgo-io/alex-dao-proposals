@@ -2,6 +2,7 @@
 
 (define-constant ONE_8 (pow u10 u8))
 
+;; wstx-alex-50-50 pool
 (define-constant fifty-percent (/ ONE_8 u2)) ;; equal-weight pool (i.e. Uniswap-like)
 (define-constant dy (* u3150000 ONE_8)) ;; 3,150,000 $ALEX / 10x IDO to ensure liquidity
 (define-constant dx (/ (* dy u16) u100)) ;; 3,150,000 $ALEX at 0.16 STX / 504,000 STX
@@ -10,9 +11,25 @@
 (define-constant fee-rate-x (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-x when token-x is sold to buy token-y
 (define-constant fee-rate-y (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-y when token-y is sold to buy token-x
 
+;; flash-loan-fee
+(define-constant flash-loan-fee-rate (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on flash-loan
+
+;; staking - default
+(define-constant reward-cycle-length u525) ;; number of block-heights per cycle / ~ 3 days
+(define-constant token-halving-cycle u100) ;; number of cycles before coinbase change / ~ 1 year
+
+;; staking - alex
+(define-constant activation-block u46601) ;; matches claim-end of IDO
+(define-constant coinbase-1 (* u413000 ONE_8)) ;; emission of $ALEX per cycle in 1st year
+(define-constant coinbase-2 (* u206500 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
+(define-constant coinbase-3 (* u103250 ONE_8)) ;; emission of $ALEX per cycle in 3rd year
+(define-constant coinbase-4 (* u51625 ONE_8)) ;; emission of $ALEX per cycle in 4th year
+(define-constant coinbase-5 (* u25813 ONE_8)) ;; emission of $ALEX per cycle in 5th year
+(define-constant apower-multipler ONE_8) ;; APower multipler
 
 (define-public (execute (sender principal))
 	(begin
+		;; wstx-alex-50-50
 		(try! (contract-call? .age000-governance-token mint-fixed dy .executor-dao))
 		(try! (contract-call? .fixed-weight-pool create-pool 
 			.token-wstx 
@@ -28,6 +45,19 @@
 		(try! (contract-call? .fixed-weight-pool set-fee-rate-x .token-wstx .age000-governance-token fifty-percent fifty-percent fee-rate-x))
 		(try! (contract-call? .fixed-weight-pool set-fee-rate-y .token-wstx .age000-governance-token fifty-percent fifty-percent fee-rate-y))
 		(try! (contract-call? .fixed-weight-pool set-oracle-enabled .token-wstx .age000-governance-token fifty-percent fifty-percent))
-		(contract-call? .fixed-weight-pool set-oracle-average .token-wstx .age000-governance-token fifty-percent fifty-percent oracle-average)
+		(try! (contract-call? .fixed-weight-pool set-oracle-average .token-wstx .age000-governance-token fifty-percent fifty-percent oracle-average))
+
+		;; flash-loan-fee
+		(try! (contract-call? .alex-vault set-flash-loan-fee-rate flash-loan-fee-rate))
+
+		;; staking - default
+    	(try! (contract-call? .alex-reserve-pool set-reward-cycle-length reward-cycle-length))
+    	(try! (contract-call? .alex-reserve-pool set-token-halving-cycle token-halving-cycle))
+
+		;; staking - alex
+    	(try! (contract-call? .alex-reserve-pool add-token .age000-governance-token))
+    	(try! (contract-call? .alex-reserve-pool set-coinbase-amount .age000-governance-token coinbase-1 coinbase-2 coinbase-3 coinbase-4 coinbase-5))
+    	(try! (contract-call? .alex-reserve-pool set-apower-multiplier-in-fixed .age000-governance-token apower-multipler))
+    	(contract-call? .alex-reserve-pool set-activation-block .age000-governance-token activation-block)		
 	)
 )
