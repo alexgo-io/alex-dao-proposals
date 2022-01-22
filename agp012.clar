@@ -52,6 +52,9 @@
 		(try! (contract-call? .weighted-equation-v1-01 set-max-in-ratio max-in-ratio))
         (try! (contract-call? .weighted-equation-v1-01 set-max-out-ratio max-out-ratio))
 
+		(try! (contract-call? .alex-vault add-approved-contract .fixed-weight-pool-v1-01))
+		(try! (contract-call? .alex-reserve-pool add-approved-contract .fixed-weight-pool-v1-01))
+
 		;; wstx-alex-50-50 v1.01
 		(try! (contract-call? .age000-governance-token mint-fixed fwp-alex-dy .executor-dao))
 		(try! (contract-call? .fixed-weight-pool-v1-01 create-pool 
@@ -105,7 +108,7 @@
     	(try! (contract-call? .alex-reserve-pool add-token .fwp-wstx-wbtc-50-50-v1-01))
     	(try! (contract-call? .alex-reserve-pool set-coinbase-amount .fwp-wstx-wbtc-50-50-v1-01 fwp-wbtc-coinbase-1 fwp-wbtc-coinbase-2 fwp-wbtc-coinbase-3 fwp-wbtc-coinbase-4 fwp-wbtc-coinbase-5))
     	(try! (contract-call? .alex-reserve-pool set-apower-multiplier-in-fixed .fwp-wstx-wbtc-50-50-v1-01 fwp-wbtc-apower-multipler))
-    	(try! (contract-call? .alex-reserve-pool set-activation-block .fwp-wbtc-alex-50-50-v1-01 fwp-wbtc-activation-block))	
+    	(try! (contract-call? .alex-reserve-pool set-activation-block .fwp-wstx-wbtc-50-50-v1-01 fwp-wbtc-activation-block))	
 		
 		(ok true)	
 	)
