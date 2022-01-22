@@ -2,6 +2,10 @@
 
 (define-constant ONE_8 (pow u10 u8))
 
+;; weighted-equation v1.01
+(define-constant max-in-ratio (/ (* ONE_8 u1) u100))
+(define-constant max-out-ratio (/ (* ONE_8 u1) u100))
+
 ;; fwp v1.01
 (define-constant fifty-percent (/ ONE_8 u2)) ;; equal-weight pool (i.e. Uniswap-like)
 (define-constant oracle-average (/ (* ONE_8 u95) u100)) ;; resilient oracle follows (0.05 * now + 0.95 * resilient-oracle-before)
@@ -45,7 +49,10 @@
 
 (define-public (execute (sender principal))
 	(begin
-		;; wstx-alex-50-50
+		(try! (contract-call? .weighted-equation-v1-01 set-max-in-ratio max-in-ratio))
+        (try! (contract-call? .weighted-equation-v1-01 set-max-out-ratio max-out-ratio))
+
+		;; wstx-alex-50-50 v1.01
 		(try! (contract-call? .age000-governance-token mint-fixed fwp-alex-dy .executor-dao))
 		(try! (contract-call? .fixed-weight-pool-v1-01 create-pool 
 			.token-wstx 
@@ -73,7 +80,7 @@
     	(try! (contract-call? .alex-reserve-pool set-apower-multiplier-in-fixed .fwp-wstx-alex-50-50-v1-01 fwp-alex-apower-multipler))
     	(try! (contract-call? .alex-reserve-pool set-activation-block .fwp-wstx-alex-50-50-v1-01 fwp-alex-activation-block))
 
-		;; wstx-wbtc-50-50
+		;; wstx-wbtc-50-50 v1.01
 		(try! (contract-call? .fixed-weight-pool-v1-01 create-pool 
 			.token-wstx 
 			.token-wbtc
