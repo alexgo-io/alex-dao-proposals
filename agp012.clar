@@ -6,16 +6,14 @@
 (define-constant max-in-ratio (/ (* ONE_8 u1) u100))
 (define-constant max-out-ratio (/ (* ONE_8 u1) u100))
 
+(define-constant reduce-amount (/ (* ONE_8 u95) u100))
+
 ;; fwp v1.01
 (define-constant fifty-percent (/ ONE_8 u2)) ;; equal-weight pool (i.e. Uniswap-like)
 (define-constant oracle-average (/ (* ONE_8 u95) u100)) ;; resilient oracle follows (0.05 * now + 0.95 * resilient-oracle-before)
 (define-constant fee-rebate (/ ONE_8 u2)) ;; 50% of tx fee goes to LPs
 (define-constant fee-rate-x (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-x when token-x is sold to buy token-y
 (define-constant fee-rate-y (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-y when token-y is sold to buy token-x
-
-;; wstx-alex-50-50 pool v1.01
-(define-constant fwp-alex-dy (* u1000 ONE_8)) ;; 1,000 $ALEX
-(define-constant fwp-alex-dx (/ (* fwp-alex-dy u554) u1000)) ;; 1,000 $ALEX at 0.554 STX / 554 STX
 
 ;; wstx-wbtc-50-50 pool v1.01
 (define-constant fwp-wbtc-dy (/ (* ONE_8 u1) u100)) ;; 0.01 XBTC
@@ -48,7 +46,12 @@
 (define-constant null-coinbase-5 u0) ;; emission of $ALEX per cycle in 5th year
 
 (define-public (execute (sender principal))
-	(begin
+	(let
+		(
+			(alex-reduce (try! (contract-call? .fixed-weight-pool reduce-position .token-wstx .age000-governance-token fifty-percent fifty-percent .fwp-wstx-alex-50-50 reduce-amount)))
+			(wbtc-reduce (try! (contract-call? .fixed-weight-pool reduce-position .token-wstx .token-wbtc fifty-percent fifty-percent .fwp-wstx-wbtc-50-50 reduce-amount)))
+		)
+
 		(try! (contract-call? .weighted-equation-v1-01 set-max-in-ratio max-in-ratio))
         (try! (contract-call? .weighted-equation-v1-01 set-max-out-ratio max-out-ratio))
 
@@ -56,7 +59,6 @@
 		(try! (contract-call? .alex-reserve-pool add-approved-contract .fixed-weight-pool-v1-01))
 
 		;; wstx-alex-50-50 v1.01
-		(try! (contract-call? .age000-governance-token mint-fixed fwp-alex-dy .executor-dao))
 		(try! (contract-call? .fixed-weight-pool-v1-01 create-pool 
 			.token-wstx 
 			.age000-governance-token 
@@ -64,8 +66,8 @@
 			fifty-percent 
 			.fwp-wstx-alex-50-50-v1-01 
 			.multisig-fwp-wstx-alex-50-50-v1-01 
-			fwp-alex-dx
-			fwp-alex-dy
+			(get dx alex-reduce)
+			(get dy alex-reduce)
 		))
 		(try! (contract-call? .fixed-weight-pool-v1-01 set-fee-rebate .token-wstx .age000-governance-token fifty-percent fifty-percent fee-rebate))
 		(try! (contract-call? .fixed-weight-pool-v1-01 set-fee-rate-x .token-wstx .age000-governance-token fifty-percent fifty-percent fee-rate-x))
