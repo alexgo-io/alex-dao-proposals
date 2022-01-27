@@ -11,7 +11,7 @@
 (define-constant fee-rate-y (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-y when token-y is sold to buy token-x
 
 ;; staking - fwp-wstx-wbtc-50-50
-(define-constant fwp-activation-block u46601) ;; matches claim-end of IDO
+(define-constant fwp-activation-block u1) ;; matches claim-end of IDO
 (define-constant fwp-coinbase-1 (* u688000  ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant fwp-coinbase-2 (* u344000 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant fwp-coinbase-3 (* u172000 ONE_8)) ;; emission of $ALEX per cycle in 3rd year

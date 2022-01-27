@@ -19,7 +19,7 @@
 (define-constant token-halving-cycle u100) ;; number of cycles before coinbase change / ~ 1 year
 
 ;; staking - alex
-(define-constant alex-activation-block u46601) ;; matches claim-end of IDO
+(define-constant alex-activation-block u1) ;; matches claim-end of IDO
 (define-constant alex-coinbase-1 (* u413000 ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant alex-coinbase-2 (* u206500 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant alex-coinbase-3 (* u103250 ONE_8)) ;; emission of $ALEX per cycle in 3rd year
@@ -28,7 +28,7 @@
 (define-constant alex-apower-multipler ONE_8) ;; APower multipler
 
 ;; staking - fwp-wstx-alex-50-50
-(define-constant fwp-activation-block u46601) ;; matches claim-end of IDO
+(define-constant fwp-activation-block u1) ;; matches claim-end of IDO
 (define-constant fwp-coinbase-1 (* u138000  ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant fwp-coinbase-2 (* u69000 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant fwp-coinbase-3 (* u34500 ONE_8)) ;; emission of $ALEX per cycle in 3rd year

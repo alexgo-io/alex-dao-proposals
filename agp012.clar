@@ -20,7 +20,7 @@
 (define-constant fwp-wbtc-dx (* fwp-wbtc-dy u25000)) ;; 0.01 XBTC at 25,000 STX / 250 STX
 
 ;; staking - fwp-wstx-alex-50-50 v1.01
-(define-constant fwp-alex-activation-block u46601) ;; matches claim-end of IDO
+(define-constant fwp-alex-activation-block u1) ;; matches claim-end of IDO
 (define-constant fwp-alex-coinbase-1 (* u138000  ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant fwp-alex-coinbase-2 (* u69000 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant fwp-alex-coinbase-3 (* u34500 ONE_8)) ;; emission of $ALEX per cycle in 3rd year
@@ -29,7 +29,7 @@
 (define-constant fwp-alex-apower-multipler (/ (* u3 ONE_8) u10)) ;; APower multipler
 
 ;; staking - fwp-wstx-wbtc-50-50 v1.01
-(define-constant fwp-wbtc-activation-block u46601) ;; matches claim-end of IDO
+(define-constant fwp-wbtc-activation-block u1) ;; matches claim-end of IDO
 (define-constant fwp-wbtc-coinbase-1 (* u688000  ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant fwp-wbtc-coinbase-2 (* u344000 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant fwp-wbtc-coinbase-3 (* u172000 ONE_8)) ;; emission of $ALEX per cycle in 3rd year
