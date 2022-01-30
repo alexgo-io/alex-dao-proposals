@@ -23,7 +23,7 @@
 (define-constant fwp-wbtc-coinbase-4 (* u32250 ONE_8)) ;; emission of $ALEX per cycle in 4th year
 (define-constant fwp-wbtc-coinbase-5 (* u16125 ONE_8)) ;; emission of $ALEX per cycle in 5th year
 
-;; xbtc pool
+;; wbtc pool
 (define-constant fifty-percent (/ ONE_8 u2)) ;; equal-weight pool (i.e. Uniswap-like)
 (define-constant dx (* u40000 ONE_8))
 (define-constant max-dy (some u202272879))
