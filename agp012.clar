@@ -48,8 +48,8 @@
 (define-public (execute (sender principal))
 	(let
 		(
-			(alex-reduce (try! (contract-call? .fixed-weight-pool-v1-01 reduce-position .token-wstx .age000-governance-token fifty-percent fifty-percent .fwp-wstx-alex-50-50 reduce-amount)))
-			(wbtc-reduce (try! (contract-call? .fixed-weight-pool-v1-01 reduce-position .token-wstx .token-wbtc fifty-percent fifty-percent .fwp-wstx-wbtc-50-50 reduce-amount)))
+			(alex-reduce (try! (contract-call? .fixed-weight-pool reduce-position .token-wstx .age000-governance-token fifty-percent fifty-percent .fwp-wstx-alex-50-50 reduce-amount)))
+			(wbtc-reduce (try! (contract-call? .fixed-weight-pool reduce-position .token-wstx .token-wbtc fifty-percent fifty-percent .fwp-wstx-wbtc-50-50 reduce-amount)))
 		)
 
 		(try! (contract-call? .weighted-equation-v1-01 set-max-in-ratio max-in-ratio))

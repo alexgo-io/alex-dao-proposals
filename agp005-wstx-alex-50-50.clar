@@ -40,7 +40,7 @@
 	(begin
 		;; wstx-alex-50-50
 		(try! (contract-call? .age000-governance-token mint-fixed dy .executor-dao))
-		(try! (contract-call? .fixed-weight-pool-v1-01 create-pool 
+		(try! (contract-call? .fixed-weight-pool create-pool 
 			.token-wstx 
 			.age000-governance-token 
 			fifty-percent 
@@ -50,11 +50,11 @@
 			dx
 			dy
 		))
-		(try! (contract-call? .fixed-weight-pool-v1-01 set-fee-rebate .token-wstx .age000-governance-token fifty-percent fifty-percent fee-rebate))
-		(try! (contract-call? .fixed-weight-pool-v1-01 set-fee-rate-x .token-wstx .age000-governance-token fifty-percent fifty-percent fee-rate-x))
-		(try! (contract-call? .fixed-weight-pool-v1-01 set-fee-rate-y .token-wstx .age000-governance-token fifty-percent fifty-percent fee-rate-y))
-		(try! (contract-call? .fixed-weight-pool-v1-01 set-oracle-enabled .token-wstx .age000-governance-token fifty-percent fifty-percent))
-		(try! (contract-call? .fixed-weight-pool-v1-01 set-oracle-average .token-wstx .age000-governance-token fifty-percent fifty-percent oracle-average))
+		(try! (contract-call? .fixed-weight-pool set-fee-rebate .token-wstx .age000-governance-token fifty-percent fifty-percent fee-rebate))
+		(try! (contract-call? .fixed-weight-pool set-fee-rate-x .token-wstx .age000-governance-token fifty-percent fifty-percent fee-rate-x))
+		(try! (contract-call? .fixed-weight-pool set-fee-rate-y .token-wstx .age000-governance-token fifty-percent fifty-percent fee-rate-y))
+		(try! (contract-call? .fixed-weight-pool set-oracle-enabled .token-wstx .age000-governance-token fifty-percent fifty-percent))
+		(try! (contract-call? .fixed-weight-pool set-oracle-average .token-wstx .age000-governance-token fifty-percent fifty-percent oracle-average))
 
 		;; flash-loan-fee
 		(try! (contract-call? .alex-vault set-flash-loan-fee-rate flash-loan-fee-rate))

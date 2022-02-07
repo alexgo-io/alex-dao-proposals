@@ -8,7 +8,7 @@
 
 (define-public (execute (sender principal))
 	(begin
-		(try! (contract-call? .fixed-weight-pool-v1-01 reduce-position .token-wstx .age000-governance-token fifty-percent fifty-percent .fwp-wstx-alex-50-50 reduce-amount))
+		(try! (contract-call? .fixed-weight-pool reduce-position .token-wstx .age000-governance-token fifty-percent fifty-percent .fwp-wstx-alex-50-50 reduce-amount))
 		(ok true)
 	)
 )
