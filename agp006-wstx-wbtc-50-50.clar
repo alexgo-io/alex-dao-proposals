@@ -21,7 +21,7 @@
 
 (define-public (execute (sender principal))
 	(begin
-		(try! (contract-call? .fixed-weight-pool create-pool 
+		(try! (contract-call? .fixed-weight-pool-v1-01 create-pool 
 			.token-wstx 
 			.token-wbtc
 			fifty-percent 
@@ -31,11 +31,11 @@
 			dx
 			dy
 		))
-		(try! (contract-call? .fixed-weight-pool set-fee-rebate .token-wstx .token-wbtc fifty-percent fifty-percent fee-rebate))
-		(try! (contract-call? .fixed-weight-pool set-fee-rate-x .token-wstx .token-wbtc fifty-percent fifty-percent fee-rate-x))
-		(try! (contract-call? .fixed-weight-pool set-fee-rate-y .token-wstx .token-wbtc fifty-percent fifty-percent fee-rate-y))
-		(try! (contract-call? .fixed-weight-pool set-oracle-enabled .token-wstx .token-wbtc fifty-percent fifty-percent))
-		(try! (contract-call? .fixed-weight-pool set-oracle-average .token-wstx .token-wbtc fifty-percent fifty-percent oracle-average))
+		(try! (contract-call? .fixed-weight-pool-v1-01 set-fee-rebate .token-wstx .token-wbtc fifty-percent fifty-percent fee-rebate))
+		(try! (contract-call? .fixed-weight-pool-v1-01 set-fee-rate-x .token-wstx .token-wbtc fifty-percent fifty-percent fee-rate-x))
+		(try! (contract-call? .fixed-weight-pool-v1-01 set-fee-rate-y .token-wstx .token-wbtc fifty-percent fifty-percent fee-rate-y))
+		(try! (contract-call? .fixed-weight-pool-v1-01 set-oracle-enabled .token-wstx .token-wbtc fifty-percent fifty-percent))
+		(try! (contract-call? .fixed-weight-pool-v1-01 set-oracle-average .token-wstx .token-wbtc fifty-percent fifty-percent oracle-average))
 
 		;; staking - fwp
     	(try! (contract-call? .alex-reserve-pool add-token .fwp-wstx-wbtc-50-50))

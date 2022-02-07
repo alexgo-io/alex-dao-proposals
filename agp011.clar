@@ -6,9 +6,9 @@
 
 (define-public (execute (sender principal))
 	(begin
-		(try! (contract-call? .fixed-weight-pool reduce-position .token-wstx .token-wbtc fifty-percent fifty-percent .fwp-wstx-wbtc-50-50 reduce-amount))
-		(try! (contract-call? .weighted-equation set-max-in-ratio (/ (* ONE_8 u1) u100)))
-        (try! (contract-call? .weighted-equation set-max-out-ratio (/ (* ONE_8 u1) u100)))
+		(try! (contract-call? .fixed-weight-pool-v1-01 reduce-position .token-wstx .token-wbtc fifty-percent fifty-percent .fwp-wstx-wbtc-50-50 reduce-amount))
+		(try! (contract-call? .weighted-equation-v1-01 set-max-in-ratio (/ (* ONE_8 u1) u100)))
+        (try! (contract-call? .weighted-equation-v1-01 set-max-out-ratio (/ (* ONE_8 u1) u100)))
         (ok true)	
 	)
 )

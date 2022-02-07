@@ -4,8 +4,8 @@
 
 (define-public (execute (sender principal))
 	(begin
-		(try! (contract-call? .weighted-equation set-max-in-ratio (/ (* ONE_8 u5) u100)))
-          (try! (contract-call? .weighted-equation set-max-out-ratio (/ (* ONE_8 u5) u100)))
+		(try! (contract-call? .weighted-equation-v1-01 set-max-in-ratio (/ (* ONE_8 u5) u100)))
+          (try! (contract-call? .weighted-equation-v1-01 set-max-out-ratio (/ (* ONE_8 u5) u100)))
           (ok true)	
 	)
 )

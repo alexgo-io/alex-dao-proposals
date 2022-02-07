@@ -10,8 +10,8 @@
 
 (define-public (execute (sender principal))
 	(begin
-		(try! (contract-call? .fixed-weight-pool reduce-position .token-wstx .age000-governance-token fifty-percent fifty-percent .fwp-wstx-alex-50-50 ONE_8))
-		(try! (contract-call? .fixed-weight-pool reduce-position .token-wstx .token-wbtc fifty-percent fifty-percent .fwp-wstx-wbtc-50-50 ONE_8))
+		(try! (contract-call? .fixed-weight-pool-v1-01 reduce-position .token-wstx .age000-governance-token fifty-percent fifty-percent .fwp-wstx-alex-50-50 ONE_8))
+		(try! (contract-call? .fixed-weight-pool-v1-01 reduce-position .token-wstx .token-wbtc fifty-percent fifty-percent .fwp-wstx-wbtc-50-50 ONE_8))
 		
 		(try! (contract-call? .fixed-weight-pool-v1-01 add-to-position .token-wstx .age000-governance-token fifty-percent fifty-percent .fwp-wstx-alex-50-50-v1-01 alex-dx alex-max-dy))
 		(try! (contract-call? .fixed-weight-pool-v1-01 add-to-position .token-wstx .token-wbtc fifty-percent fifty-percent .fwp-wstx-wbtc-50-50-v1-01 wbtc-dx wbtc-max-dy))

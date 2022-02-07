@@ -2,7 +2,7 @@
 
 (define-constant ONE_8 (pow u10 u8))
 
-;; weighted-equation v1.01
+;; weighted-equation-v1-01 v1.01
 (define-constant max-in-ratio (/ (* ONE_8 u1) u100))
 (define-constant max-out-ratio (/ (* ONE_8 u1) u100))
 
@@ -48,8 +48,8 @@
 (define-public (execute (sender principal))
 	(let
 		(
-			(alex-reduce (try! (contract-call? .fixed-weight-pool reduce-position .token-wstx .age000-governance-token fifty-percent fifty-percent .fwp-wstx-alex-50-50 reduce-amount)))
-			(wbtc-reduce (try! (contract-call? .fixed-weight-pool reduce-position .token-wstx .token-wbtc fifty-percent fifty-percent .fwp-wstx-wbtc-50-50 reduce-amount)))
+			(alex-reduce (try! (contract-call? .fixed-weight-pool-v1-01 reduce-position .token-wstx .age000-governance-token fifty-percent fifty-percent .fwp-wstx-alex-50-50 reduce-amount)))
+			(wbtc-reduce (try! (contract-call? .fixed-weight-pool-v1-01 reduce-position .token-wstx .token-wbtc fifty-percent fifty-percent .fwp-wstx-wbtc-50-50 reduce-amount)))
 		)
 
 		(try! (contract-call? .weighted-equation-v1-01 set-max-in-ratio max-in-ratio))
