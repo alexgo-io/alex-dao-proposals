@@ -3,8 +3,8 @@
 (define-constant ONE_8 (pow u10 u8))
 
 ;; simple-equation
-(define-constant max-in-ratio (/ (* ONE_8 u1) u100))
-(define-constant max-out-ratio (/ (* ONE_8 u1) u100))
+(define-constant max-in-ratio (/ (* ONE_8 u1) u100)) ;; 1%
+(define-constant max-out-ratio (/ (* ONE_8 u1) u100)) ;; 1%
 
 ;; fwp-alex-wban
 (define-constant oracle-average (/ (* ONE_8 u95) u100)) ;; resilient oracle follows (0.05 * now + 0.95 * resilient-oracle-before)
