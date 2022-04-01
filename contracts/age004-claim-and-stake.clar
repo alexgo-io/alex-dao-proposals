@@ -14,7 +14,7 @@
 	(default-to u340282366920938463463374607431768211455 (contract-call? .alex-reserve-pool get-reward-cycle token block-height))
 )
 
-(define-public (is-dao-or-extension)
+(define-read-only (is-dao-or-extension)
 	(ok (asserts! (or (is-eq tx-sender .executor-dao) (contract-call? .executor-dao is-extension contract-caller)) err-unauthorised))
 )
 
