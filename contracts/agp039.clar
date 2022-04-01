@@ -1,5 +1,14 @@
 (impl-trait .proposal-trait.proposal-trait)
 
+<<<<<<< HEAD
+(define-constant sunset-height u67606)
+
+(define-public (execute (sender principal))
+	(begin
+		(try! (contract-call? .age003-emergency-execute set-executive-team-sunset-height sunset-height))
+		(ok true)	
+	)
+=======
 (define-constant ONE_8 (pow u10 u8))
 (define-constant reward-cycles (list u10 u11 u12 u13))
 (define-constant wban-cycles (list u0))
@@ -35,4 +44,5 @@
       		(ok true)
     	)
   	)
+>>>>>>> 26e30ae6f029d97aff9667867472076d5c5c16f2
 )
