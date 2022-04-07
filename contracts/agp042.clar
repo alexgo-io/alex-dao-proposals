@@ -65,6 +65,9 @@
     	(try! (contract-call? .alex-reserve-pool set-apower-multiplier-in-fixed .fwp-alex-usda fwp-alex-apower-multipler))
     	(try! (contract-call? .alex-reserve-pool set-activation-block .fwp-alex-usda fwp-alex-activation-block))
 
+		(try! (contract-call? .alex-vault add-approved-flash-loan-user 'SP2FJ75N8SNQY91W997VEPPCZX41GXBXR8B2QRTR9.flash-loan-wusda-to-wstx))
+		(try! (contract-call? .alex-vault add-approved-flash-loan-user 'SP2FJ75N8SNQY91W997VEPPCZX41GXBXR8B2QRTR9.flash-loan-wstx-to-wusda))		
+
 		(let 
       		(
         		(lp-token (unwrap! (contract-call? .fwp-alex-usda get-balance-fixed tx-sender) ERR-GET-BALANCE-FIXED-FAIL))
