@@ -13,13 +13,13 @@
 (define-constant fee-rebate (/ ONE_8 u2)) ;; 50% of tx fee goes to LPs
 (define-constant fee-rate-x (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-x when token-x is sold to buy token-y
 (define-constant fee-rate-y (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-y when token-y is sold to buy token-x
-(define-constant start-block u55526) ;; disable first
+(define-constant start-block u55526)
 
 ;; initial liquidity
 (define-constant dy (* u100000 ONE_8)) ;; 100,000 USDA
-(define-constant dx (* u91400 ONE_8)) ;; 91,400 ALEX
+(define-constant dx (* u87250 ONE_8)) ;; 87,250 ALEX
 
-(define-constant diko-to-alex u2140) ;; 12,500 DIKO equivalent (as of the date of writing)
+(define-constant diko-to-alex u2000) ;; 12,500 DIKO equivalent (as of the date of writing)
 
 ;; staking
 (define-constant fwp-alex-activation-block start-block) ;; matches DEX start-block
