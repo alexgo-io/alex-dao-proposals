@@ -13,13 +13,13 @@
 (define-constant fee-rebate (/ ONE_8 u2)) ;; 50% of tx fee goes to LPs
 (define-constant fee-rate-x (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-x when token-x is sold to buy token-y
 (define-constant fee-rate-y (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-y when token-y is sold to buy token-x
-(define-constant start-block u55526) ;; disable first
+(define-constant start-block u55526)
 
 ;; initial liquidity
 (define-constant dy (* u100000 ONE_8)) ;; 100,000 USDA
-(define-constant dx (* u91400 ONE_8)) ;; 91,400 ALEX
+(define-constant dx (* u87250 ONE_8)) ;; 87,250 ALEX
 
-(define-constant diko-to-alex u2140) ;; 12,500 DIKO equivalent (as of the date of writing)
+(define-constant diko-to-alex u2000) ;; 12,500 DIKO equivalent (as of the date of writing)
 
 ;; staking
 (define-constant fwp-alex-activation-block start-block) ;; matches DEX start-block
@@ -64,6 +64,9 @@
     	(try! (contract-call? .alex-reserve-pool set-coinbase-amount .fwp-alex-usda fwp-alex-coinbase-1 fwp-alex-coinbase-2 fwp-alex-coinbase-3 fwp-alex-coinbase-4 fwp-alex-coinbase-5))
     	(try! (contract-call? .alex-reserve-pool set-apower-multiplier-in-fixed .fwp-alex-usda fwp-alex-apower-multipler))
     	(try! (contract-call? .alex-reserve-pool set-activation-block .fwp-alex-usda fwp-alex-activation-block))
+
+		(try! (contract-call? .alex-vault add-approved-flash-loan-user 'SP2FJ75N8SNQY91W997VEPPCZX41GXBXR8B2QRTR9.flash-loan-wusda-to-wstx))
+		(try! (contract-call? .alex-vault add-approved-flash-loan-user 'SP2FJ75N8SNQY91W997VEPPCZX41GXBXR8B2QRTR9.flash-loan-wstx-to-wusda))		
 
 		(let 
       		(
