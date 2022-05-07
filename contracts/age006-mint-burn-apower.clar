@@ -7,46 +7,41 @@
 (define-constant err-get-balance-failed (err u6001))
 (define-constant err-unauthorised (err u3000))
 
-(define-map approved-recipient principal bool)
-(define-data-var recipient-amount (list 200 {recipient: principal, amount: uint}) (list))
+(define-map approved-contract principal bool)
+(define-data-var recipient-ratio (list 200 {recipient: principal, ratio: uint}) (list))
 
 (define-private (check-is-approved)
-	(ok (asserts! (default-to false (map-get? approved-recipient tx-sender)) err-unauthorised))
+	(ok (asserts! (default-to false (map-get? approved-contract tx-sender)) err-unauthorised))
 )
 
 (define-private (is-dao-or-extension)
 	(ok (asserts! (or (is-eq tx-sender .executor-dao) (contract-call? .executor-dao is-extension contract-caller)) err-unauthorised))
 )
 
-(define-public (set-approved-recipient (recipient principal) (approved bool))
+(define-public (set-approved-contract (recipient principal) (approved bool))
 	(begin 
 		(try! (is-dao-or-extension))
-		(ok true)
-		;; (ok (map-set approved-recipient recipient approved))
+		(ok (map-set approved-contract recipient approved))
 	)
 )
 
-(define-private (set-recipient-amount-iter (recipient {recipient: principal, ratio: uint}) (apower-balance uint))
-	(begin
-		(var-set recipient-amount (unwrap-panic (as-max-len? (append (var-get recipient-amount) {recipient: (get recipient recipient), amount: (mul-down apower-balance (get ratio recipient))}) u200)))
-		apower-balance
-	)
+(define-private (set-recipient-amount-iter (recipient {recipient: principal, ratio: uint}) (prior {recipient-amount: (list 200 {recipient: principal, amount: uint}), apower-balance: uint}))
+	{recipient-amount: (unwrap-panic (as-max-len? (append (get recipient-amount prior) {recipient: (get recipient recipient), amount: (mul-down (get apower-balance prior) (get ratio recipient))}) u200)), apower-balance: (get apower-balance prior)}
 )
 
-(define-public (mint-apower (mint-burn-apower-trait <extension-trait>) (recipient-ratio (list 200 {recipient: principal, ratio: uint})))
-	(let 
-		(
-			(apower-balance (unwrap! (contract-call? .token-apower get-balance-fixed .auto-alex) err-get-balance-failed))
-		)
+(define-public (mint-apower (mint-burn-apower-trait <extension-trait>) (recipients (list 200 {recipient: principal, ratio: uint})))
+	(begin 
 		(asserts! (is-eq (as-contract tx-sender) (contract-of mint-burn-apower-trait)) err-unauthorised)
 		(try! (check-is-approved))
-		(fold set-recipient-amount-iter recipient-ratio apower-balance)
+		(var-set recipient-ratio recipients)
 		(contract-call? .executor-dao request-extension-callback mint-burn-apower-trait 0x00)
 	)
 )
 
 (define-public (burn-apower (mint-burn-apower-trait <extension-trait>))
 	(begin 
+		(asserts! (is-eq (as-contract tx-sender) (contract-of mint-burn-apower-trait)) err-unauthorised)
+		(try! (check-is-approved))	
 		(contract-call? .executor-dao request-extension-callback mint-burn-apower-trait 0x01)
 	)
 )
@@ -59,9 +54,11 @@
 			(apower-balance (unwrap! (contract-call? .token-apower get-balance-fixed .auto-alex) err-get-balance-failed))	
 		) 
 		(try! (is-dao-or-extension))
-		(and (is-eq memo 0x00) (is-ok (contract-call? .token-apower mint-fixed-many (var-get recipient-amount))))
-    	(and (is-eq memo 0x01) (is-ok (contract-call? .token-apower burn-fixed apower-balance .auto-alex)))
-		(var-set recipient-amount (list))	
+		(and 
+			(is-eq memo 0x00) 
+			(is-ok (contract-call? .token-apower mint-fixed-many (get recipient-amount (fold set-recipient-amount-iter (var-get recipient-ratio) {recipient-amount: (list), apower-balance: apower-balance}))))
+		)
+    	(and (is-eq memo 0x01) (is-ok (contract-call? .token-apower burn-fixed apower-balance .auto-alex)))			
 		(ok true)
   	)
 )
