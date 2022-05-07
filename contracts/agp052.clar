@@ -14,8 +14,8 @@
 (define-constant fee-rate-y (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-y when token-y is sold to buy token-x
 
 ;; wstx-wxusd-50-50 pool v1.01
-(define-constant fwp-wxusd-dy u50000) ;; 50,000 xUSD
-(define-constant fwp-wxusd-dx u50000) ;; 50,000 STX
+(define-constant fwp-wxusd-dy (* u50000 ONE_8)) ;; 50,000 xUSD
+(define-constant fwp-wxusd-dx (* u50000 ONE_8)) ;; 50,000 STX
 
 ;; staking - fwp-wstx-wxusd-50-50 v1.01
 (define-constant fwp-wxusd-activation-block u58151) ;;
