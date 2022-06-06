@@ -14,12 +14,12 @@
 (define-constant fee-rate-y (/ (* ONE_8 u3) u1000)) ;; 0.3% charged on token-y when token-y is sold to buy token-x
 
 ;; wstx-wmia-50-50 pool v1.01
-(define-constant fwp-wmia-dy (* u2933695 (pow u10 u7))) ;; 293,369.50 MIA
-(define-constant fwp-wmia-dx (* u1000 ONE_8)) ;; 1,000 STX
+(define-constant fwp-wmia-dy u2688911400000000) ;; MIA
+(define-constant fwp-wmia-dx u9165650000000) ;; STX
 
 ;; wstx-wnycc-50-50 pool v1.01
-(define-constant fwp-wnycc-dy (* 68941833  (pow u10 u6))) ;; 689,418.33 NYC
-(define-constant fwp-wnycc-dx (* u1000 ONE_8)) ;; 1,000 STX
+(define-constant fwp-wnycc-dy u6318941800000000) ;; NYC
+(define-constant fwp-wnycc-dx u9165650000000) ;; STX
 
 (define-public (execute (sender principal))
 	(begin		
