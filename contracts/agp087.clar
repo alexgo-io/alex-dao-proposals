@@ -10,6 +10,7 @@
 		)
 		(try! (contract-call? .auto-alex transfer-fixed amount-to-add tx-sender .alex-vault none))
 		(try! (contract-call? .alex-reserve-pool add-to-balance .auto-alex amount-to-add))
+		(print { bal-before: bal-before })
 		(ok true)	
 	)
 )
