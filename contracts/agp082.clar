@@ -5,7 +5,6 @@
 (define-constant auto-alex-amount (* u14176 ONE_8))
 (define-constant mia-amount (* u108900 ONE_8))
 (define-constant nycc-amount (* u201815 ONE_8))
-(define-constant diko-amount (* u79000 ONE_8))
 
 (define-constant stx-recipients
 	(list
@@ -1249,8 +1248,6 @@
 		(try! (contract-call? .alex-reserve-pool remove-from-balance .token-wmia mia-amount))
 		(try! (contract-call? .alex-vault transfer-ft .token-wnycc nycc-amount tx-sender))
 		(try! (contract-call? .alex-reserve-pool remove-from-balance .token-wnycc nycc-amount))
-		(try! (contract-call? .alex-vault transfer-ft .token-wdiko diko-amount tx-sender))
-		(try! (contract-call? .alex-reserve-pool remove-from-balance .token-wdiko diko-amount))
 		(try! (contract-call? .alex-vault transfer-ft .auto-alex auto-alex-amount tx-sender))
 		(try! (contract-call? .alex-reserve-pool remove-from-balance .auto-alex auto-alex-amount))
 
