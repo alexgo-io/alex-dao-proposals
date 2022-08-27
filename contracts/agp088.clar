@@ -5,7 +5,7 @@
 
 (define-public (execute (sender principal))
 	(begin		
-		(try! (contract-call? .age000-governance-token mint-fixed (* amount ONE_8) 'SPC7TY5JGGGA8HS4HGTTWXBN8NJ28XH2JR9HCXN4))
+		(try! (contract-call? .age000-governance-token mint-fixed (* amount ONE_8) 'SP22PCWZ9EJMHV4PHVS0C8H3B3E4Q079ZHY6CXDS1))
 		(ok true)
 	)
 )
