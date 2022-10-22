@@ -5,13 +5,19 @@
 (define-constant ERR-SCHEDULE-NOT-FOUND (err u1001))
 (define-constant ERR-BLOCK-HEIGHT-NOT-REACHED (err u1002))
 (define-constant ERR-EXTENSION-NOT-AUTHORIZED (err u1004))
+(define-constant ERR-DUPLICATE-ADDRESS (err u1005))
+(define-constant ERR-RECIPIENT-NOT-FOUND (err u1006))
 
 (define-data-var tokens-to-vest uint u0)
 
+(define-data-var nonce uint u0)
+
+(define-map recipients uint { address: principal, name: (string-ascii 256)})
 (define-map vesting-schedule 
-    {address: principal, vesting-id: uint} 
+    {recipient-id: uint, vesting-id: uint} 
     {amount: uint, vesting-timestamp: uint}
 )
+(define-map address-to-id principal uint)
 
 (define-public (is-dao-or-extension)
 	(ok (asserts! (or (is-eq tx-sender .executor-dao) (contract-call? .executor-dao is-extension contract-caller)) ERR-NOT-AUTHORIZED))
@@ -21,24 +27,46 @@
     (var-get tokens-to-vest)
 )
 
-(define-public (set-vesting-schedule (address principal) (vesting-id uint) (vesting-timestamp uint) (amount uint))
+(define-read-only (get-recipient-id-or-default (address principal))
+    (default-to u0 (map-get? address-to-id address))
+)
+
+(define-read-only (get-recipient-info-or-fail (recipient-id uint))
+    (ok (unwrap! (map-get? recipients recipient-id) ERR-RECIPIENT-NOT-FOUND))
+)
+
+(define-public (set-recipient (address principal) (name (string-ascii 256)))
+    (let 
+        (
+            (id (+ (var-get nonce) u1))
+        )
+        (try! (is-dao-or-extension))
+        (asserts! (is-none (map-get? address-to-id address)) ERR-DUPLICATE-ADDRESS)
+        (map-set recipients id { address: address, name: name })
+        (map-set address-to-id address id) 
+        (var-set nonce id)
+        (ok id)
+    )
+)
+(define-public (set-vesting-schedule (recipient-id uint) (vesting-id uint) (vesting-timestamp uint) (amount uint))
     (begin 
         (try! (is-dao-or-extension))
-        (map-set vesting-schedule { address: address, vesting-id: vesting-id } { amount: amount, vesting-timestamp: vesting-timestamp })
+        (try! (get-recipient-info-or-fail recipient-id))
+        (map-set vesting-schedule { recipient-id: recipient-id, vesting-id: vesting-id } { amount: amount, vesting-timestamp: vesting-timestamp })
         (ok (var-set tokens-to-vest (+ (var-get tokens-to-vest) amount)))    
     )
 )
 
-(define-private (set-vesting-schedule-iter (item { address: principal, vesting-id: uint, vesting-timestamp: uint, amount: uint }))
-    (set-vesting-schedule (get address item) (get vesting-id item) (get vesting-timestamp item) (get amount item))
+(define-private (set-vesting-schedule-iter (item { recipient-id: uint, vesting-id: uint, vesting-timestamp: uint, amount: uint }))
+    (set-vesting-schedule (get recipient-id item) (get vesting-id item) (get vesting-timestamp item) (get amount item))
 )
 
-(define-public (set-vesting-schedule-many (items (list 200 { address: principal, vesting-id: uint, vesting-timestamp: uint, amount: uint })))
+(define-public (set-vesting-schedule-many (items (list 200 { recipient-id: uint, vesting-id: uint, vesting-timestamp: uint, amount: uint })))
     (ok (map set-vesting-schedule-iter items))
 )
 
-(define-read-only (get-vesting-schedule-or-fail (address principal) (vesting-id uint))
-    (ok (unwrap! (map-get? vesting-schedule { address: address, vesting-id: vesting-id }) ERR-SCHEDULE-NOT-FOUND))
+(define-read-only (get-vesting-schedule-or-fail (recipient-id uint) (vesting-id uint))
+    (ok (unwrap! (map-get? vesting-schedule { recipient-id: recipient-id, vesting-id: vesting-id }) ERR-SCHEDULE-NOT-FOUND))
 )
 
 (define-public (get-tokens (extension <extension-trait>) (vesting-id uint))
@@ -73,10 +101,11 @@
     (let 
         (
             (vesting-id (buff-to-uint memo))
-            (schedule (try! (get-vesting-schedule-or-fail sender vesting-id)))
+            (sender-id (get-recipient-id-or-default sender))
+            (schedule (try! (get-vesting-schedule-or-fail sender-id vesting-id)))
         )
         (asserts! (> (unwrap-panic (get-block-info? time (- block-height u1))) (get vesting-timestamp schedule)) ERR-BLOCK-HEIGHT-NOT-REACHED)
-        (map-set vesting-schedule { address: sender, vesting-id: vesting-id } { vesting-timestamp: (get vesting-timestamp schedule), amount: u0 })
+        (map-set vesting-schedule { recipient-id: sender-id, vesting-id: vesting-id } { vesting-timestamp: (get vesting-timestamp schedule), amount: u0 })
         (var-set tokens-to-vest (- (var-get tokens-to-vest) (get amount schedule)))
         (contract-call? .age000-governance-token transfer-fixed (get amount schedule) tx-sender sender none)
     )	
