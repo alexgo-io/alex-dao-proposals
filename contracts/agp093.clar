@@ -723,51 +723,6 @@
 { vesting-id: u40, vesting-timestamp: u1769817600, amount: u11575000000 }
 ))
 
-(define-constant address-18 'SP3RKRRMRQVBCB5DTTSNTPSTSTTMBAAESKWAGC5EN)
-(define-constant name-18 "Woongyu Koo")
-(define-constant schedule-18 (list
-{ vesting-id: u1, vesting-timestamp: u1667174400, amount: u23150000000 }
-{ vesting-id: u2, vesting-timestamp: u1669766400, amount: u23150000000 }
-{ vesting-id: u3, vesting-timestamp: u1672444800, amount: u23150000000 }
-{ vesting-id: u4, vesting-timestamp: u1675123200, amount: u23150000000 }
-{ vesting-id: u5, vesting-timestamp: u1677542400, amount: u34725000000 }
-{ vesting-id: u6, vesting-timestamp: u1680220800, amount: u34725000000 }
-{ vesting-id: u7, vesting-timestamp: u1682812800, amount: u11575000000 }
-{ vesting-id: u8, vesting-timestamp: u1685491200, amount: u11575000000 }
-{ vesting-id: u9, vesting-timestamp: u1688083200, amount: u11575000000 }
-{ vesting-id: u10, vesting-timestamp: u1690761600, amount: u11575000000 }
-{ vesting-id: u11, vesting-timestamp: u1693440000, amount: u11575000000 }
-{ vesting-id: u12, vesting-timestamp: u1696032000, amount: u11575000000 }
-{ vesting-id: u13, vesting-timestamp: u1698710400, amount: u11575000000 }
-{ vesting-id: u14, vesting-timestamp: u1701302400, amount: u11575000000 }
-{ vesting-id: u15, vesting-timestamp: u1703980800, amount: u11575000000 }
-{ vesting-id: u16, vesting-timestamp: u1706659200, amount: u11575000000 }
-{ vesting-id: u17, vesting-timestamp: u1709164800, amount: u11575000000 }
-{ vesting-id: u18, vesting-timestamp: u1711843200, amount: u11575000000 }
-{ vesting-id: u19, vesting-timestamp: u1714435200, amount: u11575000000 }
-{ vesting-id: u20, vesting-timestamp: u1717113600, amount: u11575000000 }
-{ vesting-id: u21, vesting-timestamp: u1719705600, amount: u11575000000 }
-{ vesting-id: u22, vesting-timestamp: u1722384000, amount: u11575000000 }
-{ vesting-id: u23, vesting-timestamp: u1725062400, amount: u11575000000 }
-{ vesting-id: u24, vesting-timestamp: u1727654400, amount: u11575000000 }
-{ vesting-id: u25, vesting-timestamp: u1730332800, amount: u11575000000 }
-{ vesting-id: u26, vesting-timestamp: u1732924800, amount: u11575000000 }
-{ vesting-id: u27, vesting-timestamp: u1735603200, amount: u11575000000 }
-{ vesting-id: u28, vesting-timestamp: u1738281600, amount: u11575000000 }
-{ vesting-id: u29, vesting-timestamp: u1740700800, amount: u11575000000 }
-{ vesting-id: u30, vesting-timestamp: u1743379200, amount: u11575000000 }
-{ vesting-id: u31, vesting-timestamp: u1745971200, amount: u11575000000 }
-{ vesting-id: u32, vesting-timestamp: u1748649600, amount: u11575000000 }
-{ vesting-id: u33, vesting-timestamp: u1751241600, amount: u11575000000 }
-{ vesting-id: u34, vesting-timestamp: u1753920000, amount: u11575000000 }
-{ vesting-id: u35, vesting-timestamp: u1756598400, amount: u11575000000 }
-{ vesting-id: u36, vesting-timestamp: u1759190400, amount: u11575000000 }
-{ vesting-id: u37, vesting-timestamp: u1761868800, amount: u11575000000 }
-{ vesting-id: u38, vesting-timestamp: u1764460800, amount: u11575000000 }
-{ vesting-id: u39, vesting-timestamp: u1767139200, amount: u11575000000 }
-{ vesting-id: u40, vesting-timestamp: u1769817600, amount: u11575000000 }
-))
-
 (define-public (execute (sender principal))
     (let 
         (
@@ -787,7 +742,6 @@
 (recipient-15 (try! (contract-call? .age009-token-lock set-recipient address-15 name-15)))
 (recipient-16 (try! (contract-call? .age009-token-lock set-recipient address-16 name-16)))
 (recipient-17 (try! (contract-call? .age009-token-lock set-recipient address-17 name-17)))
-(recipient-18 (try! (contract-call? .age009-token-lock set-recipient address-18 name-18)))
 (vesting-2 (generate-schedule-many recipient-2 schedule-2))
 (vesting-3 (generate-schedule-many recipient-3 schedule-3))
 (vesting-4 (generate-schedule-many recipient-4 schedule-4))
@@ -804,7 +758,6 @@
 (vesting-15 (generate-schedule-many recipient-15 schedule-15))
 (vesting-16 (generate-schedule-many recipient-16 schedule-16))
 (vesting-17 (generate-schedule-many recipient-17 schedule-17))
-(vesting-18 (generate-schedule-many recipient-18 schedule-18))	
         )
 		;; repay working capital
 	    (try! (contract-call? .age000-governance-token mint-fixed (* amount ONE_8) 'SP22PCWZ9EJMHV4PHVS0C8H3B3E4Q079ZHY6CXDS1))
@@ -825,7 +778,6 @@
 (unwrap-panic (contract-call? .age009-token-lock set-vesting-schedule-many vesting-15))
 (unwrap-panic (contract-call? .age009-token-lock set-vesting-schedule-many vesting-16))
 (unwrap-panic (contract-call? .age009-token-lock set-vesting-schedule-many vesting-17))
-(unwrap-panic (contract-call? .age009-token-lock set-vesting-schedule-many vesting-18))
         (ok true)
     )
 )
