@@ -37,7 +37,7 @@
 			(stx-wbtc-claimed (try! (claim-staking-reward .fwp-wstx-wbtc-50-50-v1-01 (- (get-reward-cycle-or-default .fwp-wstx-wbtc-50-50-v1-01) memo-uint))))
 			(alex-claimed (try! (claim-staking-reward .age000-governance-token (- (get-reward-cycle-or-default .age000-governance-token) memo-uint))))
 			(alex-wban-claimed (try! (claim-staking-reward .fwp-alex-wban (- (get-reward-cycle-or-default .fwp-alex-wban) memo-uint))))
-			(alex-usda-claimed (unwrap-panic (contract-call? .dual-farming-pool claim-staking-reward .fwp-alex-usda .dual-farm-diko-helper (list (- (get-reward-cycle-or-default .fwp-alex-usda) memo-uint)))))
+			(alex-usda-claimed (unwrap-panic (unwrap-panic (element-at (unwrap-panic (contract-call? .dual-farming-pool claim-staking-reward .fwp-alex-usda .dual-farm-diko-helper (list (- (get-reward-cycle-or-default .fwp-alex-usda) memo-uint)))) u0))))
 			(stx-wxusd-claimed (try! (claim-staking-reward .fwp-wstx-wxusd-50-50-v1-01 (- (get-reward-cycle-or-default .fwp-wstx-wxusd-50-50-v1-01) memo-uint))))
 		) 
 		(try! (is-dao-or-extension))		
