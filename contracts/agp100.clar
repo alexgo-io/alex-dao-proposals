@@ -15,8 +15,11 @@
     )
 )
 
+(define-constant extra-rewards u15298921106538)
+
 (define-public (execute (sender principal))
     (begin  
+        (try! (contract-call? .age000-governance-token mint-fixed extra-rewards 'SP1NGMS9Z48PRXFAG2MKBSP0PWERF07C0KV9SPJ66))
         (try! (contract-call? .auto-alex set-end-cycle END_CYCLE))
         (try! (contract-call? .alex-reserve-pool set-token-halving-cycle END_CYCLE))
         (try! (fold set-coinbase-iter TOKEN_LIST (ok true)))
