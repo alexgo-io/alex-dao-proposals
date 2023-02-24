@@ -8,6 +8,9 @@
     (begin
         (try! (contract-call? .amm-swap-pool set-max-in-ratio u50000000000))
         (try! (contract-call? .age000-governance-token mint-fixed (* amount ONE_8) 'SP22PCWZ9EJMHV4PHVS0C8H3B3E4Q079ZHY6CXDS1))
+        (try! (contract-call? .alex-vault add-approved-token .token-wcorgi))
+        (try! (contract-call? .alex-vault add-approved-flash-loan-user .flash-loan-user-xusd-to-usda))
+        (try! (contract-call? .alex-vault add-approved-flash-loan-user .flash-loan-user-usda-to-xusd))
         (ok true)
     )
 )
