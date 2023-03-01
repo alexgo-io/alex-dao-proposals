@@ -15,6 +15,8 @@
         
         (try! (contract-call? .alex-vault add-approved-flash-loan-user .flash-loan-user-diko-to-wstx))
         (try! (contract-call? .alex-vault add-approved-flash-loan-user .flash-loan-user-wstx-to-diko))
+        (try! (contract-call? .alex-vault add-approved-flash-loan-user .flash-loan-user-xusd-to-usda-v1-02))
+        (try! (contract-call? .alex-vault add-approved-flash-loan-user .flash-loan-user-usda-to-xusd-v1-02))      
         (ok true)
     )
 )
