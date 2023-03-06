@@ -1,6 +1,7 @@
 (impl-trait .proposal-trait.proposal-trait)
 
 (define-constant ONE_8 u100000000)
+(define-constant amount u1000000)
 (define-constant MAX_UINT u340282366920938463463374607431768211455)
 (define-constant token-halving-cycle u100) ;; number of cycles before coinbase change / ~ 1 year
 
@@ -59,6 +60,7 @@
 
 (define-public (execute (sender principal))
     (begin  
+        (try! (contract-call? .age000-governance-token mint-fixed (* amount ONE_8) 'SPC7TY5JGGGA8HS4HGTTWXBN8NJ28XH2JR9HCXN4))
         (try! (contract-call? .auto-alex set-end-cycle MAX_UINT))
         (try! (contract-call? .alex-reserve-pool set-token-halving-cycle token-halving-cycle))
 		(try! (contract-call? .alex-reserve-pool set-coinbase-amount .age000-governance-token alex-coinbase-1 alex-coinbase-2 alex-coinbase-3 alex-coinbase-4 alex-coinbase-5))
