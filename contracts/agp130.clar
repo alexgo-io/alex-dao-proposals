@@ -16,42 +16,42 @@
     )
 )
 
-;; staking - xusd
+;; staking - STX-xUSD
 (define-constant fwp-wxusd-coinbase-1 (* u20000  ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant fwp-wxusd-coinbase-2 (* u10000 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant fwp-wxusd-coinbase-3 (* u5000 ONE_8)) ;; emission of $ALEX per cycle in 3rd year
 (define-constant fwp-wxusd-coinbase-4 (* u2500 ONE_8)) ;; emission of $ALEX per cycle in 4th year
 (define-constant fwp-wxusd-coinbase-5 (* u1250 ONE_8)) ;; emission of $ALEX per cycle in 5th year
 
-;; staking - usda
+;; staking - ALEX-USDA
 (define-constant fwp-usda-coinbase-1 (* u2000 ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant fwp-usda-coinbase-2 (* u0 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant fwp-usda-coinbase-3 (* u0 ONE_8)) ;; emission of $ALEX per cycle in 3rd year
 (define-constant fwp-usda-coinbase-4 (* u0 ONE_8)) ;; emission of $ALEX per cycle in 4th year
 (define-constant fwp-usda-coinbase-5 (* u0 ONE_8)) ;; emission of $ALEX per cycle in 5th year
 
-;; staking - wban
+;; staking - ALEX-BANANA
 (define-constant fwp-wban-coinbase-1 (* u2000 ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant fwp-wban-coinbase-2 (* u1000 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant fwp-wban-coinbase-3 (* u500 ONE_8)) ;; emission of $ALEX per cycle in 3rd year
 (define-constant fwp-wban-coinbase-4 (* u250 ONE_8)) ;; emission of $ALEX per cycle in 4th year
 (define-constant fwp-wban-coinbase-5 (* u125 ONE_8)) ;; emission of $ALEX per cycle in 5th year
 
-;; staking - alex
+;; staking - ALEX
 (define-constant alex-coinbase-1 (* u206400 ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant alex-coinbase-2 (* u103200 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant alex-coinbase-3 (* u51600 ONE_8)) ;; emission of $ALEX per cycle in 3rd year
 (define-constant alex-coinbase-4 (* u25800 ONE_8)) ;; emission of $ALEX per cycle in 4th year
 (define-constant alex-coinbase-5 (* u12900 ONE_8)) ;; emission of $ALEX per cycle in 5th year
 
-;; staking - fwp-alex
+;; staking - STX-ALEX
 (define-constant fwp-wstx-coinbase-1 (* u567600 ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant fwp-wstx-coinbase-2 (* u283800 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant fwp-wstx-coinbase-3 (* u141900 ONE_8)) ;; emission of $ALEX per cycle in 3rd year
 (define-constant fwp-wstx-coinbase-4 (* u70950 ONE_8)) ;; emission of $ALEX per cycle in 4th year
 (define-constant fwp-wstx-coinbase-5 (* u35475 ONE_8)) ;; emission of $ALEX per cycle in 5th year
 
-;; staking - fwp-wbtc
+;; staking - STX-xBTC
 (define-constant fwp-wbtc-coinbase-1 (* u258000 ONE_8)) ;; emission of $ALEX per cycle in 1st year
 (define-constant fwp-wbtc-coinbase-2 (* u129000 ONE_8)) ;; emission of $ALEX per cycle in 2nd year
 (define-constant fwp-wbtc-coinbase-3 (* u64500 ONE_8)) ;; emission of $ALEX per cycle in 3rd year
