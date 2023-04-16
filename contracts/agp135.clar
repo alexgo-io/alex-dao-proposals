@@ -1,5 +1,6 @@
 (impl-trait .proposal-trait.proposal-trait)
 
+(define-constant ONE_8 (pow u10 u8))
 (define-constant amount u30000000)
 
 (define-public (execute (sender principal))
