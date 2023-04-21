@@ -1,11 +1,15 @@
 (impl-trait .proposal-trait.proposal-trait)
 
-(define-constant ONE_8 (pow u10 u8))
-(define-constant amount u3000000)
+(define-constant ONE_8 u100000000)
 
 (define-public (execute (sender principal))
-	(begin
-		(try! (contract-call? .age000-governance-token mint-fixed (* amount ONE_8) 'SP22PCWZ9EJMHV4PHVS0C8H3B3E4Q079ZHY6CXDS1))
-		(ok true)	
-	)
+    (begin
+
+        (try! (contract-call? .alex-vault add-approved-token .token-susdt))
+
+        (try! (contract-call? .amm-swap-pool set-max-in-ratio u50000000))
+        (try! (contract-call? .amm-swap-pool set-max-out-ratio u50000000))
+          
+        (ok true)
+    )
 )
