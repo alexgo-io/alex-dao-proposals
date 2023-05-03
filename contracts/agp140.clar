@@ -6,6 +6,7 @@
     (begin
         (try! (contract-call? .auto-alex set-start-block MAX_UINT))
         (try! (contract-call? .auto-alex set-end-cycle MAX_UINT))
+        (try! (contract-call? .simple-weight-pool-alex set-start-block .age000-governance-token .auto-alex MAX_UINT))
         (ok true)
     )
 )
